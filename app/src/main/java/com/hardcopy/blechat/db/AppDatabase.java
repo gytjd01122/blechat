@@ -15,7 +15,7 @@ import android.content.Context;
  * @see UserDao
  * @see GpsDao
  */
-@Database(entities = {User.class , Gps.class}, version = 1, exportSchema = false)
+@Database(entities = {User.class , Gps.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
