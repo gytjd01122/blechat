@@ -2,6 +2,7 @@ package com.hardcopy.blechat.db;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 /**
@@ -11,7 +12,7 @@ import android.support.annotation.NonNull;
  * @see GpsDao
  * @see AppDatabase
  */
-@Entity(primaryKeys = {"date","time"})
+@Entity
 public class Gps {
 
     public Gps(@NonNull String date, @NonNull Long time, @NonNull Double distance) {
@@ -19,6 +20,11 @@ public class Gps {
         this.time = time;
         this.distance = distance;
     }
+
+    @NonNull
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    private int id;
 
     @NonNull
     @ColumnInfo(name = "date")
@@ -31,6 +37,14 @@ public class Gps {
     @NonNull
     @ColumnInfo(name = "distance")
     private Double distance;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @NonNull
     public String getDate() {
