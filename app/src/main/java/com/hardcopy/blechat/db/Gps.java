@@ -27,15 +27,15 @@ public class Gps {
     private int id;
 
     @NonNull
-    @ColumnInfo(name = "date")
+    @ColumnInfo(name = "date" , typeAffinity = 2) // SQLite: TEXT Type
     private String date;
 
     @NonNull
-    @ColumnInfo(name = "time")
+    @ColumnInfo(name = "time" , typeAffinity = 3) // SQLite: INTEGER Type
     private Long time;
 
     @NonNull
-    @ColumnInfo(name = "distance")
+    @ColumnInfo(name = "distance" , typeAffinity = 4) // SQLite: REAL Type
     private Double distance;
 
     public int getId() {
