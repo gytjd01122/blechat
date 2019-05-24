@@ -57,4 +57,12 @@ public interface GpsDao {
      */
     @Query("SELECT * FROM Gps WHERE date = :date AND time = :time" )
     List<Gps> getAllByDateAndTime(String date , Long time);
+
+    /**
+     * Gps 테이블에서 날짜에 해당하는 모든 거리의 합을 가져옵니다.
+     * @param date 날짜 type:String
+     * @return distance type:Double
+     */
+    @Query("SELECT SUM(distance) FROM Gps WHERE date = :date" )
+    Double getSumDistanceByDate(String date);
 }
