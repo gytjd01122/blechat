@@ -22,7 +22,7 @@ public interface UserDao {
 
     /**
      * User 테이블에 모든 형식을 입력합니다.
-     * @param users (name:String , weight:String , height:String)
+     * @param users (name:String , age:Integer , weight:String , height:String)
      */
     @Insert
     void insertAll(User... users);
@@ -46,7 +46,7 @@ public interface UserDao {
      * @param name 이름 type:String
      * @return user:List<User>
      */
-    @Query("SELECT * FROM user WHERE name LIKE :name")
+    @Query("SELECT * FROM user WHERE name = :name")
     List<User> getAllByName(String name);
 
 }
