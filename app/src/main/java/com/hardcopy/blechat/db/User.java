@@ -15,24 +15,41 @@ import android.support.annotation.NonNull;
 @Entity
 public class User {
 
-    public User(String name, String weight, String height) {
+    public User(@NonNull String name, @NonNull Integer age, @NonNull Double weight, @NonNull Double height) {
         this.name = name;
+        this.age = age;
         this.weight = weight;
         this.height = height;
     }
 
     @NonNull
-    @PrimaryKey
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
+    @NonNull
+    @ColumnInfo(name = "name" , typeAffinity = 2) // SQLite: TEXT Type
     private String name;
 
     @NonNull
-    @ColumnInfo(name = "weight")
-    private String weight;
+    @ColumnInfo(name = "age" , typeAffinity = 3) // SQLite: INTEGER Type
+    private Integer age;
 
     @NonNull
-    @ColumnInfo(name = "height")
-    private String height;
+    @ColumnInfo(name = "weight" , typeAffinity = 4) // SQLite: Real Type
+    private Double weight;
+
+    @NonNull
+    @ColumnInfo(name = "height" , typeAffinity = 4) // SQLite: Real Type
+    private Double height;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @NonNull
     public String getName() {
@@ -43,19 +60,30 @@ public class User {
         this.name = name;
     }
 
-    public String getWeight() {
+    @NonNull
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(@NonNull Integer age) {
+        this.age = age;
+    }
+
+    @NonNull
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(@NonNull String weight) {
+    public void setWeight(@NonNull Double weight) {
         this.weight = weight;
     }
 
-    public String getHeight() {
+    @NonNull
+    public Double getHeight() {
         return height;
     }
 
-    public void setHeight(@NonNull String height) {
+    public void setHeight(@NonNull Double height) {
         this.height = height;
     }
 }
