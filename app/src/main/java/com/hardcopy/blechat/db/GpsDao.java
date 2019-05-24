@@ -35,14 +35,14 @@ public interface GpsDao {
     void delete(Gps gps);
 
     /**
-     * GPS 테이블에서 모든 자료를 불러옵니다.
+     * GPS 테이블에서 모든 자료를 가져옵니다..
      * @return gps:List<Gps>
      */
     @Query("SELECT * FROM gps")
     List<Gps> getAll();
 
     /**
-     * Gps 테이블에서 날짜에 해당하는 모든 자료를 불러옵니다.
+     * Gps 테이블에서 날짜에 해당하는 모든 자료를 가져옵니다.
      * @param date 날짜 type:String
      * @return gps:List<Gps>
      */
@@ -50,7 +50,7 @@ public interface GpsDao {
       List<Gps> getAllByDate(String date);
 
     /**
-     * Gps 테이블에서 날짜와 시간에 해당하는 모든 자료를 불러옵니다.
+     * Gps 테이블에서 날짜와 시간에 해당하는 모든 자료를 가져옵니다..
      * @param date 날짜 type:String
      * @param time 시간 type:Long
      * @return gps:List<Gps>
