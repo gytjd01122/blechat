@@ -49,4 +49,30 @@ public interface UserDao {
     @Query("SELECT * FROM user WHERE name = :name")
     List<User> getAllByName(String name);
 
+    /**
+     * User 테이블에서 이름과 일치하는 나이를 불러옵니다.
+     * @param name 이름 type:String
+     * @return age type:Integer
+     */
+    @Query("SELECT age FROM user WHERE name = :name")
+    Integer getAgeByName(String name);
+
+    /**
+     * User 테이블에서 이름과 일치하는 무게를 불러옵니다.
+     * @param name 이름 type:String
+     * @return weight type:Double
+     */
+    @Query("SELECT weight FROM user WHERE name = :name")
+    Integer getWeightByName(String name);
+
+    /**
+     * User 테이블에서 이름과 일치하는 키를 불러옵니다.
+     * @param name 이름 type:String
+     * @return height type:Double
+     */
+    @Query("SELECT height FROM user WHERE name = :name")
+    Integer getHeightByName(String name);
+
+
+
 }
