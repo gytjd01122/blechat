@@ -65,4 +65,14 @@ public interface GpsDao {
      */
     @Query("SELECT SUM(distance) FROM Gps WHERE date = :date" )
     Double getSumDistanceByDate(String date);
+
+    /**
+     * Gps 테이블에서 날짜에 해당하는 모든 시간의 합을 가져옵니다.
+     * @param date 날짜 type:String
+     * @return time 시간 type:Long
+     */
+    @Query("SELECT SUM(time) FROM Gps WHERE date = :date" )
+    Long getSumTimeByDate(String date);
+
+
 }
