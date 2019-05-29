@@ -63,7 +63,7 @@ public interface UserDao {
      * @return weight type:Double
      */
     @Query("SELECT weight FROM user WHERE name = :name")
-    Integer getWeightByName(String name);
+    Double getWeightByName(String name);
 
     /**
      * User 테이블에서 이름과 일치하는 키를 불러옵니다.
@@ -71,7 +71,7 @@ public interface UserDao {
      * @return height type:Double
      */
     @Query("SELECT height FROM user WHERE name = :name")
-    Integer getHeightByName(String name);
+    Double getHeightByName(String name);
 
 
 
