@@ -4,6 +4,11 @@ import com.hardcopy.blechat.db.AppDatabase;
 
 public class ExerciseLogic {
 
+    private BIKE_METS_STRENGTH metsStrength;
+    private AppDatabase db;
+    private String date;
+    private String userName;
+
     public enum BIKE_METS_STRENGTH {
 
         VERY_LIGHT(3) , LIGHT(5.5) , MEDIUM(7) , HEAVY(10.5) , VERY_HEAVY(12.5);
@@ -21,11 +26,6 @@ public class ExerciseLogic {
     private  enum EMPTY_TYPE {
         DATE , USERNAME
     }
-
-    private BIKE_METS_STRENGTH metsStrength;
-    private AppDatabase db;
-    private String date;
-    private String userName;
 
     public ExerciseLogic(AppDatabase db){
         metsStrength = BIKE_METS_STRENGTH.LIGHT;
