@@ -19,6 +19,7 @@ package com.hardcopy.blechat.fragments;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.method.ScrollingMovementMethod;
@@ -38,8 +39,15 @@ import android.widget.Toast;
 import com.google.android.gms.maps.model.LatLng;
 import com.hardcopy.blechat.MainActivity;
 import com.hardcopy.blechat.R;
+import com.hardcopy.blechat.db.AppDatabase;
+import com.hardcopy.blechat.db.Gps;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ExampleFragment extends Fragment implements View.OnClickListener {
+
+
 
 	private Context mContext = null;
 	private IFragmentListener mFragmentListener = null;
@@ -49,9 +57,14 @@ public class ExampleFragment extends Fragment implements View.OnClickListener {
 	private boolean gps_load = false;
 	TextView mTextChat;
 	EditText mEditChat;
-	Button mBtnSend;
-	Button btnDrive;
-	Button btnSafe;
+
+	public Button mBtnSend;
+	public Button btnDrive;
+	public Button btnSafe;
+
+
+	long endTime;
+	long startTime;
 
 
 
@@ -97,34 +110,50 @@ public class ExampleFragment extends Fragment implements View.OnClickListener {
 			case R.id.button2:
 			    if(button_drive){
 			        button_drive = false;
+					endTime = System.currentTimeMillis();
+
+					long drive_time = endTime - startTime;
+					Date date = new Date(endTime);
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					String getTime = sdf.format(date);
+
                     ((MainActivity)getActivity()).button_2 = false;
-					((MainActivity)getActivity()).setDefaultLocation();
+
+			      	//((MainActivity)getActivity()).setDefaultLocation();
+					//((MainActivity)getActivity()).db.gpsDao().insertAll(new Gps(getTime ,drive_time,((MainActivity)getActivity()).exr_distance));
+
 					((MainActivity)getActivity()).DriveExit();
+
 			        btnDrive.setText("주행모드 시작");
-			        break;
+
 
                 }else{
 			        button_drive = true;
-                    ((MainActivity)getActivity()).button_2 = true;
+					((MainActivity)getActivity()).button_2 = true;
+
+					startTime = System.currentTimeMillis();
+
+					((MainActivity)getActivity()).DriveStart();
 			        btnDrive.setText("주행모드 종료");
-			        break;
+
                 }
 
+                break;
 
 			case R.id.button3:
 				if(button_safe){
 					sendMessage("3");
 					button_safe = false;
 					btnSafe.setText("안전모드 ON");
-					break;
+
 
 				}else{
 					button_safe = true;
 					sendMessage("2");
 					btnSafe.setText("안전모드 OFF");
-					break;
-				}
 
+				}
+				break;
 		}
 
 
@@ -206,6 +235,16 @@ public class ExampleFragment extends Fragment implements View.OnClickListener {
 
         builder.show();
     }
+
+
+
+
+
+
+
+
+
+
 }
     
 

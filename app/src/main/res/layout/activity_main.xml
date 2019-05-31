@@ -15,7 +15,6 @@
 
 
 
-
     <!-- status bar : display connection info -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,6 +36,9 @@
             android:layout_height="20dip"
             android:layout_margin="3dip"
             style="@style/AppTheme.ConnectionInfoText" />
+
+
+
     </LinearLayout>
 
 
@@ -51,7 +53,23 @@
 
 
 
+    <TextView
+        android:id="@+id/time"
+        android:textSize="30sp"
+        android:text="00:00:00"
+        android:layout_width="120dp"
+        android:layout_height="35dip"
+        android:layout_marginRight="80dp"
+         />
 
+    <TextView
+        android:id="@+id/dis"
+        android:text="0.0km"
+        android:textSize="30sp"
+        android:layout_width="120dp"
+        android:layout_height="35dip"
+        android:layout_marginLeft="130dip"
+         />
 
 </FrameLayout>
 

@@ -20,8 +20,10 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.hardcopy.blechat.R;
+import com.hardcopy.blechat.db.AppDatabase;
 import com.hardcopy.blechat.fragments.ExampleFragment;
 import com.hardcopy.blechat.fragments.FragmentAdapter;
 import com.hardcopy.blechat.fragments.IFragmentListener;
@@ -32,6 +34,7 @@ import com.hardcopy.blechat.utils.Logs;
 import com.hardcopy.blechat.utils.RecycleUtils;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -54,6 +57,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -61,11 +65,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -104,15 +112,27 @@ import java.util.Locale;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener, IFragmentListener, OnMapReadyCallback {
 
+
     // Debugging
     private static final String TAG = "BIPER_SYSTEM";
     public static boolean button_2 = false;
 
 
+	private Thread timeThread = null;
+
+	FragmentManager fm;
+
+	private TextView dt;
+	private TextView tt;
+
+
+
+	//db
+	public AppDatabase db;
+
 
 	private GoogleMap mGoogleMap = null;
 	private Marker currentMarker = null;
-
 
 	private static final int GPS_ENABLE_REQUEST_CODE = 2001;
 	private static final int UPDATE_INTERVAL_MS = 1000;  // 1초
@@ -125,11 +145,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	Location mCurrentLocatiion;
 	LatLng currentPosition;
 	LatLng startPosition = null;
-	float exr_distance = 0;
+
+	Polyline line;
+	public float exr_distance = 0;
+
 
 
 	private PolylineOptions polylineOptions = new PolylineOptions();
-	private ArrayList<LatLng> arrayPoints;
 
 
 	private FusedLocationProviderClient mFusedLocationClient;
@@ -137,7 +159,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private Location location;
 
 
-	private View mLayout;  // Snackbar 사용하기 위해서는 View가 필요합니다.
+	private View mLayout;
+   // Snackbar 사용하기 위해서는 View가 필요합니다.
 	// (참고로 Toast에서는 Context가 필요했습니다.)
 
 
@@ -156,6 +179,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	
 	private ImageView mImageBT = null;
 	private TextView mTextStatus = null;
+
+
+
+
 
 	// Refresh timer
 	private Timer mRefreshTimer = null;
@@ -180,9 +207,15 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		
 		setContentView(R.layout.activity_main);
 
-		mLayout = findViewById(R.id.layout_main);
+		dt = findViewById(R.id.dis);
+		tt = findViewById(R.id.time);
+
+		dt.setVisibility(View.INVISIBLE);
+		tt.setVisibility(View.INVISIBLE);
 
 		Log.d(TAG, "onCreate");
+
+
 
 		locationRequest = new LocationRequest()
 				.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -212,8 +245,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
-
 		// Setup views
+
 		mImageBT = (ImageView) findViewById(R.id.status_title);
 		mImageBT.setImageDrawable(getResources().getDrawable(android.R.drawable.presence_invisible));
 		mTextStatus = (TextView) findViewById(R.id.status_text);
@@ -221,7 +254,18 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 		// Do data initialization after service started and binded
 		doStartService();
+
+		db = AppDatabase.getAppDatabase(this);
+
+
+
+
 	}
+
+
+
+
+
 
 	LocationCallback locationCallback = new LocationCallback() {
 		@Override
@@ -289,6 +333,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		}
 
 	}
+
+
+
+
+
 
     @Override
     public void onMapReady(final GoogleMap googleMap){
@@ -371,6 +420,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	}
 
 
+
+
 	@Override
 	public synchronized void onStart() {
 		super.onStart();
@@ -445,6 +496,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	}
 
 
+
 	public boolean checkLocationServicesStatus() {
 		LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
@@ -456,6 +508,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	public void setCurrentLocation(Location location, String markerTitle, String markerSnippet) {
 
 		if(button_2) {
+
+			dt.setVisibility(View.VISIBLE);
+			tt.setVisibility(View.VISIBLE);
+
 
 			if (currentMarker != null) currentMarker.remove();
 
@@ -495,7 +551,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				polylineOptions.color(Color.RED);
 				polylineOptions.width(5);
 				polylineOptions.add(currentLatLng);
-				mGoogleMap.addPolyline(polylineOptions);
+			    mGoogleMap.addPolyline(polylineOptions);
 
 
                 Location sp = new Location("시작 위치");
@@ -504,7 +560,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
                 exr_distance += sp.distanceTo(location);
 
-               // Toast.makeText(getApplicationContext(),Float.toString(exr_distance),Toast.LENGTH_LONG).show();
+
+					String dis = String.format("%.1f", exr_distance / 1000);
+					dt.setText(dis+"km");
 
 
                 startPosition = currentPosition;
@@ -543,9 +601,66 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 	}
 
-	public void DriveExit(){
+	public void DriveStart(){
+		timeThread = new Thread(new timeThread());
+		timeThread.start();
+
+	}
+	public void DriveExit() {
+		timeThread.interrupt();
+		//polylineOptions = null;
+
 		mGoogleMap.clear();
-		arrayPoints.clear();
+		exr_distance = 0;
+
+		tt.setVisibility(View.INVISIBLE);
+		dt.setVisibility(View.INVISIBLE);
+	}
+
+	@SuppressLint("HandlerLeak")
+	Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			//int mSec = msg.arg1 % 100;
+			int sec = (msg.arg1 / 100) % 60;
+			int min = (msg.arg1 / 100) / 60;
+			int hour = (msg.arg1 / 100) / 360;
+			//1000이 1초 1000*60 은 1분 1000*60*10은 10분 1000*60*60은 한시간
+
+			@SuppressLint("DefaultLocale") String result = String.format("%02d:%02d:%02d", hour, min, sec);
+
+			tt.setText(result);
+
+
+		}
+	};
+
+	public class timeThread implements Runnable {
+		@Override
+		public void run() {
+			int i = 0;
+
+			while (true) {
+				while (button_2) { //일시정지를 누르면 멈춤
+					Message msg = new Message();
+					msg.arg1 = i++;
+					handler.sendMessage(msg);
+
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+						runOnUiThread(new Runnable(){
+							@Override
+							public void run() {
+
+							}
+						});
+						return; // 인터럽트 받을 경우 return
+					}
+				}
+			}
+		}
 	}
 
 
@@ -756,7 +871,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	@Override
 	public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 		// When the given tab is selected, switch to the corresponding page in the ViewPager.
-		mViewPager.setCurrentItem(tab.getPosition());
+		//mViewPager.setCurrentItem(tab.getPosition());
 	}
 
 	@Override
@@ -941,6 +1056,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				Toast.makeText(this, R.string.bt_not_enabled_leaving, Toast.LENGTH_SHORT).show();
 			}
 			break;
+
+
 		}	// End of switch(requestCode)
 	}
 
@@ -1031,5 +1148,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			});
 		}
 	}
+
+
+
+
+
 
 }

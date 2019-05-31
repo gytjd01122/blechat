@@ -3,6 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id ="@+id/layout_dummy"
     tools:context=".MainActivity$DummySectionFragment" >
 
     <LinearLayout
@@ -11,7 +12,6 @@
         android:layout_gravity="bottom"
         android:orientation="horizontal"
         >
-
 
         <Button
             android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:textStyle="bold"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimaryDark"
             android:layout_marginTop="8dp"
             style="?android:attr/borderlessButtonStyle"
             />
@@ -36,7 +36,7 @@
             android:textStyle="bold"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimaryDark"
             android:layout_marginTop="8dp"
             style="?android:attr/borderlessButtonStyle"
             />
@@ -49,7 +49,7 @@
             android:textStyle="bold"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimaryDark"
             android:layout_marginTop="8dp"
 
             style="?android:attr/borderlessButtonStyle"

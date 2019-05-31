@@ -5,29 +5,49 @@
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
-        <!--
+
+
+      <item name="android:background">@color/colorPrimary</item>
+      <item name="android:windowBackground">@color/colorPrimary</item>
+      <item name="android:colorBackground">@color/colorPrimary</item>
+
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
-        -->
-    </style>
-    
-    <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+
     </style>
 
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="android:Theme.Light">
+
+        <item name="android:windowBackground">@color/colorPrimary</item>
+
+
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+        <!-- Base application theme. -->
+
+
+
+
     <!-- Application specific style -->
-    
+
     <style name="AppTheme.ConnectionInfoContainer">
-        <item name="android:background">@color/gray3</item>
+        <item name="android:background">@color/colorPrimary</item>
     </style>
     <style name="AppTheme.ConnectionInfoText">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/graye</item>
     </style>
-    
-    
+
+
     <!-- Intro -->
     <style name="AppTheme.IntroContainer">
         <item name="android:background">@color/blue6</item>
@@ -40,13 +60,13 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/blue2</item>
     </style>
-    
-    
+
+
     <!-- Fragment -->
     <style name="AppTheme.FragmentContainer">
-        <item name="android:background">#FFFFFF</item>
+        <item name="android:background">@color/colorPrimary</item>
     </style>
-    
+
     <!-- List -->
     <style name="AppTheme.TwoLineListUpperLineText">
         <item name="android:textColor">#444444</item>
@@ -57,30 +77,30 @@
         <item name="android:textColor">#222222</item>
         <item name="android:textSize">16sp</item>
     </style>
-    
+
     <style name="AppTheme.List">
         <item name="android:background">#FFFFFF</item>
         <item name="android:fadingEdgeLength">3dip</item>
         <item name="android:divider">#FFFFFF</item>
         <item name="android:dividerHeight">1px</item>
     </style>
-    
+
     <style name="AppTheme.ListItemContainer">
         <item name="android:background">#EFEFEF</item>
         <item name="android:paddingBottom">2dip</item>
     </style>
-    
+
     <!-- Input types -->
     <style name="AppTheme.FormContainer">
         <item name="android:background">#E0E0E0</item>
         <item name="android:paddingBottom">2dip</item>
     </style>
-    
+
     <style name="AppTheme.FormSpinner">
         <item name ="android:textSize">10sp</item>
         <item name="android:textColor">#3F3F3F</item>
     </style>
-    
+
     <style name="AppTheme.FormText">
         <item name ="android:textSize">12sp</item>
         <item name="android:includeFontPadding">false</item>
@@ -88,7 +108,7 @@
         <item name="android:paddingLeft">10dip</item>
         <item name="android:paddingRight">10dip</item>
     </style>
-    
+
     <style name="AppTheme.FormEditText">
         <item name ="android:textSize">12sp</item>
         <item name="android:includeFontPadding">false</item>
@@ -97,7 +117,7 @@
         <item name="android:paddingRight">10dip</item>
         <item name="android:privateImeOptions">defaultInputmode=english;symbol=true</item>
     </style>
-    
+
     <style name="AppTheme.FormURLEditText">
         <item name ="android:textSize">10sp</item>
         <item name="android:includeFontPadding">false</item>
@@ -106,7 +126,7 @@
         <item name="android:paddingRight">10dip</item>
         <item name="android:privateImeOptions">defaultInputmode=english;symbol=true</item>
     </style>
-    
+
     <style name="AppTheme.FormButton">
         <item name ="android:textSize">12sp</item>
         <item name="android:textColor">#EFEFEF</item>
@@ -115,7 +135,7 @@
         <item name ="android:padding">0dip</item>
         <item name="android:background">@drawable/form_button_selector</item>
     </style>
-    
+
     <style name="AppTheme.FormURLButton">
         <item name ="android:textSize">12sp</item>
         <item name="android:textColor">#EFEFEF</item>
@@ -124,7 +144,7 @@
         <item name ="android:padding">0dip</item>
         <item name="android:background">@drawable/form_button_selector</item>
     </style>
-    
+
     <!-- Dialog -->
     <style name="AppTheme.DialogText">
         <item name="android:textSize">16sp</item>
@@ -132,6 +152,11 @@
         <item name="android:padding">5dip</item>
         <item name="android:lineSpacingExtra">2dip</item>
     </style>
-    
-    
+
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_logo</item>
+    </style>
+
+
+
 </resources>
