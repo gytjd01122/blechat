@@ -38,7 +38,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
         if (INSTANCE == null) {
             INSTANCE =
-                    Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "db")
+                    Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "database")
                             // allow queries on the main thread.
                             // Don't do this on a real app! See PersistenceBasicSample for an example.
                             .allowMainThreadQueries()
