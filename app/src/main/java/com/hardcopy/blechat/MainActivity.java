@@ -113,6 +113,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity implements ActionBar.TabListener, IFragmentListener, OnMapReadyCallback {
 
 
+
     // Debugging
     private static final String TAG = "BIPER_SYSTEM";
     public static boolean button_2 = false;
