@@ -1,13 +1,16 @@
 package com.hardcopy.blechat.exerciseLogic;
 
 import com.hardcopy.blechat.db.AppDatabase;
+import com.hardcopy.blechat.setting.UserSetting;
 
 public class ExerciseLogic {
 
     private BIKE_METS_STRENGTH metsStrength;
     private AppDatabase db;
-    private String date;
+
+    private  String date;
     private String userName;
+    private Double userWeight;
 
     public enum BIKE_METS_STRENGTH {
 
@@ -27,9 +30,13 @@ public class ExerciseLogic {
         DATE , USERNAME
     }
 
-    public ExerciseLogic(AppDatabase db){
+    public ExerciseLogic(AppDatabase db , String date){
         metsStrength = BIKE_METS_STRENGTH.LIGHT;
         this.db = db;
+
+        userName = getUserName();
+        userWeight = getUserWeight();
+        this.date = date;
 
     }
 
@@ -50,21 +57,13 @@ public class ExerciseLogic {
         this.db = db;
     }
 
-    public String getDate(){
-        return date;
-    }
+    private String getUserName(){ return  UserSetting.getName();}
 
-    public void setDate(String date){
-        this.date = date;
-    }
+    private  Double getUserWeight(){ return UserSetting.getWeight().doubleValue(); }
 
-    public String getUserName(){
-        return  userName;
-    }
+    public String getDate() { return date; }
 
-    public  void setUserName(String userName){
-        this.userName =userName;
-    }
+    public void setDate(String date) { this.date = date; }
 
     public Long getSumTime(){
         checkEmptyError(EMPTY_TYPE.DATE);
@@ -86,25 +85,15 @@ public class ExerciseLogic {
         return db.gpsDao().getSumDistanceByDate(date);
     }
 
-    private  Double getUserWeight(String userName){
-        return  db.userDao().getWeightByName(userName).doubleValue();
-    }
-
     public Double getKcal(){
         checkEmptyError(EMPTY_TYPE.USERNAME);
         checkEmptyError(EMPTY_TYPE.DATE);
 
-        return (metsStrength.getValue() * (3.5 * getUserWeight(userName) * getSumTime(date)) * 5) / 1000;
+        return (metsStrength.getValue() * (3.5 * getUserWeight() * getSumTime(date)) * 5) / 1000;
     }
 
-    public Double getKcal(String userName){
-        checkEmptyError(EMPTY_TYPE.DATE);
-
-        return (metsStrength.getValue() * (3.5 * getUserWeight(userName) * getSumTime(date)) * 5) / 1000;
-    }
-
-    public Double getKcal(String date , String userName){
-        return (metsStrength.getValue() * (3.5 * getUserWeight(userName) * getSumTime(date)) * 5) / 1000;
+    public Double getKcal(String date){
+        return (metsStrength.getValue() * (3.5 * getUserWeight() * getSumTime(date)) * 5) / 1000;
     }
 
     private void checkEmptyError(EMPTY_TYPE error){
