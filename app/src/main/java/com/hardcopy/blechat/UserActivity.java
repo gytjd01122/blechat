@@ -1,103 +1,121 @@
 package com.hardcopy.blechat;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import android.content.res.AssetManager;
-import android.os.Bundle;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.Switch;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import com.hardcopy.blechat.setting.UserSetting;
 
-import org.ini4j.Ini;
-import org.ini4j.Profile.Section;
-import org.ini4j.Wini;
-
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class UserActivity extends Activity {
-    SharedPreferences pref;
-    SharedPreferences prefs;
 
+    private static final String EDITTEXT_IDENTIFIER = "editText";
 
-    EditText name;
-    EditText age;
-    EditText tall;
-    EditText kg;
-    Button btn;
+    public enum EDITTEXT_TYPE {
+        NAME(1), AGE(2), HEIGHT(3), WEIGHT(4);
+        final private int value;
+
+        private EDITTEXT_TYPE(int value) {
+            this.value = value;
+        }
+        public int getValue() {
+            return value;
+        }
+        public int getValueStartWith0() {
+            return value - 1;
+        }
+    };
+
+    ArrayList<EditText> editTexts = new ArrayList<EditText>();
+    private Button saveButton;
+
+    private UserSetting setting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
+        //초기화
+        setting = new UserSetting(this);
 
-        name = findViewById(R.id.editText1);
-        age = findViewById(R.id.editText2);
-        tall = findViewById(R.id.editText3);
-        kg = findViewById(R.id.editText4);
+        // 레이아웃:activity_user 에 있는 id를 리스트 Edittexts로 담기.
+        for( EDITTEXT_TYPE typeNumber : EDITTEXT_TYPE.values()){
+            editTexts.add(
+                    (EditText) findViewById(getResources().
+                            getIdentifier(EDITTEXT_IDENTIFIER + typeNumber.getValue() , "id" , getPackageName())
+                    ));
 
-        btn = findViewById(R.id.btn);
+        }
+        saveButton = findViewById(R.id.btn);
 
+        //기능: 자동불러오기
+        for (EDITTEXT_TYPE typeNumber : EDITTEXT_TYPE.values()){
+            EditText _element =  editTexts.get(typeNumber.getValueStartWith0());
+            String _i;
 
-        pref = getSharedPreferences("name", MODE_PRIVATE);
-        prefs =getSharedPreferences("name", MODE_PRIVATE);
+            switch (typeNumber){
+                case NAME:
+                    _i = String.valueOf(UserSetting.getName());
+                    if(_i.equals(UserSetting.USER_SETTING_DEFAULT_VALUE)){ _i = ""; }
+                    _element.setText(_i); break;
+                case AGE:
+                    _i = String.valueOf(UserSetting.getAge());
+                    if(_i.equals(UserSetting.USER_SETTING_DEFAULT_VALUE)){ _i = ""; }
+                    _element.setText(_i); break;
 
+                case HEIGHT:
+                    _i = UserSetting.getHeight().toString();
+                    if(_i.equals("0.0")){ _i = ""; } //TODO  HARDCODED 0.0
+                    _element.setText(_i); break;
+                case WEIGHT:
+                    _i = UserSetting.getWeight().toString();
+                    if(_i.equals("0.0")){ _i = ""; } //TODO HARDCODED 0.0
+                    _element.setText(_i); break;
+            }
 
-
-       String user_name = prefs.getString("user_name","");
-
-       if(!user_name.equals("")) {
-            name.setText(prefs.getString("user_name", "0"));
-            age.setText(prefs.getString("user_age", "0"));
-            tall.setText(prefs.getString("user_tall", "0"));
-            kg.setText(prefs.getString("user_kg", "0"));
         }
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        //기능: 저장하기
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                SharedPreferences.Editor editor = pref.edit();
-                editor.clear();
-                editor.commit();
+                for (EDITTEXT_TYPE typeNumber : EDITTEXT_TYPE.values()){
+                    String _element =  editTexts.get(typeNumber.getValueStartWith0()).getText().toString();
 
+                    switch (typeNumber){
+                        case NAME:
+                            if (_element.equals("")) {_element = UserSetting.USER_SETTING_DEFAULT_VALUE;}
+                            setting.setName(_element); break;
+                        case AGE:
+                            if (_element.equals("")) {_element = UserSetting.USER_SETTING_DEFAULT_VALUE;}
+                            setting.setAge(_element); break;
+                        case HEIGHT:
+                            if (_element.equals("")) {_element = UserSetting.USER_SETTING_DEFAULT_VALUE;}
+                            setting.setHeight(_element); break;
+                        case WEIGHT:
+                            if (_element.equals("")) {_element = UserSetting.USER_SETTING_DEFAULT_VALUE;}
+                            setting.setWeight(_element); break;
+                    }
 
+                }
 
-
-                    editor.putString("user_name", name.getText().toString());
-                    editor.putString("user_age", age.getText().toString());
-                    editor.putString("user_tall", tall.getText().toString());
-                    editor.putString("user_kg", kg.getText().toString());
-                    editor.commit();
-
-
-
-                name.setText(prefs.getString("user_name", "0"));
-                age.setText(prefs.getString("user_age", "0"));
-                tall.setText(prefs.getString("user_tall", "0"));
-                kg.setText(prefs.getString("user_kg", "0"));
 
 
             }
+
         });
 
+
+
     }
-
 }
-
-
