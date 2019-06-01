@@ -12,20 +12,12 @@ import android.content.Context;
  * final AppDatabase db = AppDatabase.getAppDatabase(this);
  *
  * @author KIM HYO SEONG
- * @see UserDao
  * @see GpsDao
  */
-@Database(entities = {User.class , Gps.class}, version = 1 , exportSchema = false)
+@Database(entities = {Gps.class}, version = 1 , exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
-
-    /**
-     * 참고:
-     * {@link com.hardcopy.blechat.db.UserDao}
-     * @return
-     */
-    public abstract UserDao userDao();
 
     /**
      * 참고:
