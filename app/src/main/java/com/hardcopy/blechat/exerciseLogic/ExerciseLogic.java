@@ -1,5 +1,6 @@
 package com.hardcopy.blechat.exerciseLogic;
 
+import android.app.Activity;
 import com.hardcopy.blechat.db.AppDatabase;
 import com.hardcopy.blechat.setting.UserSetting;
 
@@ -30,19 +31,26 @@ public class ExerciseLogic {
         DATE , USERNAME
     }
 
-    public ExerciseLogic(AppDatabase db , String date){
+    public ExerciseLogic( Activity activity , AppDatabase db , String date){
         metsStrength = BIKE_METS_STRENGTH.LIGHT;
         this.db = db;
 
+        UserSetting.init(activity);
         userName = getUserName();
         userWeight = getUserWeight();
         this.date = date;
 
     }
 
-    public ExerciseLogic(BIKE_METS_STRENGTH metsStrength , AppDatabase db){
+    public ExerciseLogic(Activity activity, BIKE_METS_STRENGTH metsStrength , AppDatabase db , String date){
         this.metsStrength = metsStrength;
         this.db = db;
+
+        UserSetting.init(activity);
+
+        userName = getUserName();
+        userWeight = getUserWeight();
+        this.date = date;
     }
 
     public BIKE_METS_STRENGTH getMetsStrength() {
@@ -57,7 +65,9 @@ public class ExerciseLogic {
         this.db = db;
     }
 
-    private String getUserName(){ return  UserSetting.getName();}
+    private String getUserName(){
+        return  UserSetting.getName();
+    }
 
     private  Double getUserWeight(){ return UserSetting.getWeight().doubleValue(); }
 
