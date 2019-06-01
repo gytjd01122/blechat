@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 
 
 	//db
-	public AppDatabase db;
+	public static AppDatabase db;
 
 
 	private GoogleMap mGoogleMap = null;
