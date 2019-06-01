@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 
+import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 import com.hardcopy.blechat.setting.UserSetting;
 
 import java.util.ArrayList;
@@ -105,6 +106,9 @@ public class UserActivity extends Activity {
                             setting.setWeight(_element); break;
                     }
                 }
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
