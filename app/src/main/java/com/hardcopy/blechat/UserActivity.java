@@ -48,21 +48,20 @@ public class UserActivity extends Activity {
         setting = new UserSetting(this);
 
         // 레이아웃:activity_user 에 있는 id를 리스트 Edittexts로 담기.
-        for( EDITTEXT_TYPE typeNumber : EDITTEXT_TYPE.values()){
+        for( EDITTEXT_TYPE type : EDITTEXT_TYPE.values()){
             editTexts.add(
                     (EditText) findViewById(getResources().
-                            getIdentifier(EDITTEXT_IDENTIFIER + typeNumber.getValue() , "id" , getPackageName())
+                            getIdentifier(EDITTEXT_IDENTIFIER + type.getValue() , "id" , getPackageName())
                     ));
-
         }
         saveButton = findViewById(R.id.btn);
 
         //기능: 자동불러오기
-        for (EDITTEXT_TYPE typeNumber : EDITTEXT_TYPE.values()){
-            EditText _element =  editTexts.get(typeNumber.getValueStartWith0());
+        for (EDITTEXT_TYPE type : EDITTEXT_TYPE.values()){
+            EditText _element =  editTexts.get(type.getValueStartWith0());
             String _i;
 
-            switch (typeNumber){
+            switch (type){
                 case NAME:
                     _i = String.valueOf(UserSetting.getName());
                     if(_i.equals(UserSetting.USER_SETTING_DEFAULT_VALUE)){ _i = ""; }
@@ -81,7 +80,6 @@ public class UserActivity extends Activity {
                     if(_i.equals("0.0")){ _i = ""; } //TODO HARDCODED 0.0
                     _element.setText(_i); break;
             }
-
         }
 
         //기능: 저장하기
@@ -106,13 +104,8 @@ public class UserActivity extends Activity {
                             if (_element.equals("")) {_element = UserSetting.USER_SETTING_DEFAULT_VALUE;}
                             setting.setWeight(_element); break;
                     }
-
                 }
-
-
-
             }
-
         });
 
 
