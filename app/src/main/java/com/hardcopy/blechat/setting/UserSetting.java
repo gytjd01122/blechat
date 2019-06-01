@@ -13,9 +13,11 @@ public class UserSetting {
         NAME , AGE , WEIGHT , HEIGHT
     }
 
-    private Activity caller;
+
+    private static Activity caller;
     private static SharedPreferences pref;
     private SharedPreferences.Editor editor;
+
 
     public UserSetting(Activity caller) {
         this.caller = caller;
@@ -23,6 +25,18 @@ public class UserSetting {
         editor = pref.edit();
     }
 
+    public static Activity getCaller() {
+        return caller;
+    }
+
+    private static void update() {
+        pref = caller.getSharedPreferences(USER_SETTING, Context.MODE_PRIVATE);
+    }
+
+    public static void init(Activity caller) {
+        UserSetting.caller = caller;
+        update();
+    }
     public static String getName() {
         return pref.getString(USER_SETTING_KEY.NAME.toString(),USER_SETTING_DEFAULT_VALUE);
     }
