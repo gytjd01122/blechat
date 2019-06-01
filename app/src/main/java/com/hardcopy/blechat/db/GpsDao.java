@@ -75,4 +75,18 @@ public interface GpsDao {
     Long getSumTimeByDate(String date);
 
 
+
+    /**
+     * Gps 테이블에서 날짜별로 해당하는 모든 자료를 가져옵니다.
+     * @param date 날짜 type:String
+     * @return List<String>
+     */
+    @Query("SELECT date ,SUM(time) , SUM(distance) FROM Gps GROUP BY :date")
+    List<String> GetAllDataByDate(String date);
+
+    @Query("SELECT date FROM Gps GROUP BY date HAVING SUM(distance) != 0")
+    List<String> getAllExerciseDay();
+
+    @Query("SELECT date FROM Gps GROUP BY date HAVING SUM(distance) != 0")
+    List<String> getAllNonExerciseDay();
 }
