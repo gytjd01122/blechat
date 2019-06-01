@@ -5,6 +5,7 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,16 +74,6 @@ public interface GpsDao {
      */
     @Query("SELECT SUM(time) FROM Gps WHERE date = :date" )
     Long getSumTimeByDate(String date);
-
-
-
-    /**
-     * Gps 테이블에서 날짜별로 해당하는 모든 자료를 가져옵니다.
-     * @param date 날짜 type:String
-     * @return List<String>
-     */
-    @Query("SELECT date ,SUM(time) , SUM(distance) FROM Gps GROUP BY :date")
-    List<String> GetAllDataByDate(String date);
 
     @Query("SELECT date FROM Gps GROUP BY date HAVING SUM(distance) != 0")
     List<String> getAllExerciseDay();
