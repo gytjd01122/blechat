@@ -16,13 +16,11 @@
 
 package com.hardcopy.blechat;
 
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.hardcopy.blechat.R;
 import com.hardcopy.blechat.db.AppDatabase;
 import com.hardcopy.blechat.fragments.ExampleFragment;
 import com.hardcopy.blechat.fragments.FragmentAdapter;
@@ -57,31 +55,23 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
+
+import com.google.android.material.snackbar.Snackbar;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
-import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -97,14 +87,8 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.util.List;
@@ -257,7 +241,6 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 		doStartService();
 
 		db = AppDatabase.getAppDatabase(this);
-
 
 
 
@@ -1018,17 +1001,17 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 		super.onActivityResult(requestCode, resultCode, data);
 		Logs.d(TAG, "onActivityResult " + resultCode);
 
-		switch(requestCode) {
-		case Constants.REQUEST_CONNECT_DEVICE:
-			// When DeviceListActivity returns with a device to connect
-			if (resultCode == Activity.RESULT_OK) {
-				// Get the device MAC address
-				String address = data.getExtras().getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
-				// Attempt to connect to the device
-				if(address != null && mService != null)
-					mService.connectDevice(address);
-			}
-			break;
+		switch (requestCode) {
+			case Constants.REQUEST_CONNECT_DEVICE:
+				// When DeviceListActivity returns with a device to connect
+				if (resultCode == Activity.RESULT_OK) {
+					// Get the device MAC address
+					String address = data.getExtras().getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
+					// Attempt to connect to the device
+					if (address != null && mService != null)
+						mService.connectDevice(address);
+				}
+				break;
 
 			case GPS_ENABLE_REQUEST_CODE:
 
@@ -1047,20 +1030,20 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 
 				break;
 
-		case Constants.REQUEST_ENABLE_BT:
-			// When the request to enable Bluetooth returns
-			if (resultCode == Activity.RESULT_OK) {
-				// Bluetooth is now enabled, so set up a BT session
-				mService.setupBLE();
-			} else {
-				// User did not enable Bluetooth or an error occured
-				Logs.e(TAG, "BT is not enabled");
-				Toast.makeText(this, R.string.bt_not_enabled_leaving, Toast.LENGTH_SHORT).show();
-			}
-			break;
+			case Constants.REQUEST_ENABLE_BT:
+				// When the request to enable Bluetooth returns
+				if (resultCode == Activity.RESULT_OK) {
+					// Bluetooth is now enabled, so set up a BT session
+					mService.setupBLE();
+				} else {
+					// User did not enable Bluetooth or an error occured
+					Logs.e(TAG, "BT is not enabled");
+					Toast.makeText(this, R.string.bt_not_enabled_leaving, Toast.LENGTH_SHORT).show();
+				}
+				break;
 
 
-		}	// End of switch(requestCode)
+		}    // End of switch(requestCode)
 	}
 
 

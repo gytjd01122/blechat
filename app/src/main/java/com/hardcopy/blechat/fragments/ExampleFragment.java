@@ -19,10 +19,9 @@ package com.hardcopy.blechat.fragments;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.method.ScrollingMovementMethod;
+
+import androidx.fragment.app.Fragment;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,13 +33,10 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.hardcopy.blechat.MainActivity;
 import com.hardcopy.blechat.R;
-import com.hardcopy.blechat.db.AppDatabase;
-import com.hardcopy.blechat.db.Gps;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

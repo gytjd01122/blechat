@@ -19,14 +19,12 @@ package com.hardcopy.blechat.fragments;
 import java.util.Locale;
 
 import com.hardcopy.blechat.R;
-import com.hardcopy.blechat.R.string;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 
 /**

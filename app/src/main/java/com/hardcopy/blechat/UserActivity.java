@@ -2,19 +2,15 @@ package com.hardcopy.blechat;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Switch;
 
-import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 import com.hardcopy.blechat.setting.UserSetting;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class UserActivity extends Activity {
 

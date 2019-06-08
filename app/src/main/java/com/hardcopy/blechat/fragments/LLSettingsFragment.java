@@ -17,22 +17,18 @@
 package com.hardcopy.blechat.fragments;
 
 import com.hardcopy.blechat.R;
-import com.hardcopy.blechat.R.id;
-import com.hardcopy.blechat.R.layout;
 import com.hardcopy.blechat.utils.AppSettings;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class LLSettingsFragment extends Fragment {
