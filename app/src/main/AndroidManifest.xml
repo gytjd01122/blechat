@@ -34,6 +34,7 @@
         <activity android:name=".CofigActivity"></activity>
         <activity android:name=".UserActivity"/>
         <activity android:name=".ExerciseActivity"/>
+        <activity android:name=".FirstStepActivity"/>
 
 
         <activity

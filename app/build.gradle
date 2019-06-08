@@ -16,6 +16,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -34,14 +38,22 @@ dependencies {
     implementation 'androidx.vectordrawable:vectordrawable:1.0.1'
     implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
 
+    //For use ViewPager
     implementation 'androidx.viewpager2:viewpager2:1.0.0-alpha05'
 
+    //For use viewpager indicator
+    implementation 'me.relex:circleindicator:2.1.2'
 
+    //For use Material design
+    implementation 'com.google.android.material:material:1.0.0'
 
     // For use Room library
     def room_version = "1.1.1"
     implementation 'androidx.room:room-runtime:2.0.0'
     annotationProcessor 'androidx.room:room-compiler:2.0.0'
     // For Kotlin use kapt instead of annotationProcessor
+
+    //for use checkmark animation
+    implementation 'com.github.cdflynn:checkview:v1.1'
 
 }

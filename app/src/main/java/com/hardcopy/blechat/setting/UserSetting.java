@@ -51,6 +51,9 @@ public class UserSetting {
     }
 
     public void setAge(String age) {
+        if (age.equals("")) {
+            age = USER_SETTING_DEFAULT_VALUE;
+        }
         editor.putInt(USER_SETTING_KEY.AGE.toString(), Integer.valueOf(age));
         editor.commit();
     }
@@ -60,15 +63,22 @@ public class UserSetting {
     }
 
     public void setWeight(String weight) {
+        if (weight.equals("")) {
+            weight = USER_SETTING_DEFAULT_VALUE;
+        }
         editor.putFloat(USER_SETTING_KEY.WEIGHT.toString(), Float.valueOf(weight));
         editor.commit();
     }
 
     public static Float getHeight() {
+
         return pref.getFloat(USER_SETTING_KEY.HEIGHT.toString(),  Float.valueOf(USER_SETTING_DEFAULT_VALUE));
     }
 
     public void setHeight(String height) {
+        if (height.equals("")) {
+            height = USER_SETTING_DEFAULT_VALUE;
+        }
         editor.putFloat(USER_SETTING_KEY.HEIGHT.toString(), Float.valueOf(height));
         editor.commit();
     }

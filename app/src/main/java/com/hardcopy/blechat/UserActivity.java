@@ -89,16 +89,12 @@ public class UserActivity extends Activity {
 
                     switch (typeNumber){
                         case NAME:
-                            if (_element.equals("")) {_element = UserSetting.USER_SETTING_DEFAULT_VALUE;}
                             setting.setName(_element); break;
                         case AGE:
-                            if (_element.equals("")) {_element = UserSetting.USER_SETTING_DEFAULT_VALUE;}
                             setting.setAge(_element); break;
                         case HEIGHT:
-                            if (_element.equals("")) {_element = UserSetting.USER_SETTING_DEFAULT_VALUE;}
                             setting.setHeight(_element); break;
                         case WEIGHT:
-                            if (_element.equals("")) {_element = UserSetting.USER_SETTING_DEFAULT_VALUE;}
                             setting.setWeight(_element); break;
                     }
                 }
