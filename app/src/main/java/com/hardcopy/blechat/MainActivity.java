@@ -1015,6 +1015,7 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 	 * Receives result from external activity
 	 */
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
 		Logs.d(TAG, "onActivityResult " + resultCode);
 
 		switch(requestCode) {
