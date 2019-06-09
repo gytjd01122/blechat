@@ -99,11 +99,11 @@ public class ExerciseLogic {
         checkEmptyError(EMPTY_TYPE.USERNAME);
         checkEmptyError(EMPTY_TYPE.DATE);
 
-        return (metsStrength.getValue() * (3.5 * getUserWeight() * getSumTime(date)) * 5) / 1000;
+        return (metsStrength.getValue() * (3.5 * getUserWeight() * (getSumTime(date)/60) * 5)) / 1000;
     }
 
     public Double getKcal(String date){
-        return (metsStrength.getValue() * (3.5 * getUserWeight() * getSumTime(date)) * 5) / 1000;
+        return (metsStrength.getValue() * (3.5 * getUserWeight() * (getSumTime(date)/60) * 5)) / 1000;
     }
 
     private void checkEmptyError(EMPTY_TYPE error){
