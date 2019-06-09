@@ -63,15 +63,15 @@
 
         <TextView
             android:id="@+id/Distance"
+            android:gravity="center_vertical|right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="25dp"
             android:layout_marginTop="30dp"
             android:background="@color/pinkAccent"
-            android:paddingLeft="100dp"
-            android:paddingRight="15dp"
-            android:text="0"
+            android:paddingRight="8dp"
+            android:text="0 m"
             android:textColor="#FFF"
             android:textSize="20dp" />
     </LinearLayout>
@@ -94,15 +94,15 @@
 
         <TextView
             android:id="@+id/Time"
+            android:gravity="center_vertical|right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="25dp"
             android:layout_marginTop="25dp"
             android:background="@color/pinkAccent"
-            android:paddingLeft="100dp"
-            android:paddingRight="15dp"
-            android:text="0"
+            android:paddingRight="8dp"
+            android:text="0 초"
             android:textColor="#FFF"
             android:textSize="20dp" />
     </LinearLayout>
@@ -125,15 +125,15 @@
 
         <TextView
             android:id="@+id/Kcal"
+            android:gravity="center_vertical|right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="28dp"
             android:layout_marginRight="25dp"
             android:layout_marginTop="25dp"
             android:background="@color/pinkAccent"
-            android:paddingLeft="98dp"
-            android:paddingRight="15dp"
-            android:text="0"
+            android:paddingRight="8dp"
+            android:text="0 칼로리"
             android:textColor="#FFF"
             android:textSize="20dp" />
     </LinearLayout>
