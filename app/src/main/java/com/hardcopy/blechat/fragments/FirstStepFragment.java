@@ -30,6 +30,7 @@ public class FirstStepFragment extends Fragment {
     private TextInputEditText intputtext;
 
     public FragmentFirststepBinding layout;
+    String hintMsg;
 
 
 
@@ -43,10 +44,14 @@ public class FirstStepFragment extends Fragment {
     }
 
     public FirstStepFragment(String message , boolean iseditextOn){
-
         this(message);
         this.isEditextOn = iseditextOn;
 
+    }
+
+    public FirstStepFragment(String message ,String hintMsg, boolean iseditextOn){
+        this(message , iseditextOn);
+        this.hintMsg = hintMsg;
     }
 
     public String getInputText(){
@@ -75,6 +80,7 @@ public class FirstStepFragment extends Fragment {
 
         if(isEditextOn){
             layout.textInputLayout.setVisibility(View.VISIBLE);
+            layout.textInputLayout.setHint(hintMsg);
         } else {
             layout.textInputLayout.setVisibility(View.INVISIBLE);
         }
