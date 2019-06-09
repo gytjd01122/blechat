@@ -65,7 +65,7 @@ public class FirstStepActivity extends AppCompatActivity {
                         break;
                     case 2:
                         checkText = adapter.getItem(position -1 ).layout.textInputEditText.getText().toString();
-                            if(checkText.equals("") || CheckNum.isNumber(checkText)) { viewpager.setCurrentItem(1); }
+                            if(checkText.equals("") || !CheckNum.isChar(checkText) && !CheckNum.isKorean(checkText)) { viewpager.setCurrentItem(1); }
 
                             break;
                     case 3:
@@ -75,12 +75,12 @@ public class FirstStepActivity extends AppCompatActivity {
                         break;
                     case 4:
                         checkText = adapter.getItem(position -1 ).layout.textInputEditText.getText().toString();
-                        if(checkText.equals("") || !CheckNum.isNumber(checkText))  { viewpager.setCurrentItem(3);}
+                        if(checkText.equals("") || !CheckNum.isNumberIncludeFloat(checkText))  { viewpager.setCurrentItem(3);}
 
                         break;
                     case 5:
                         checkText = adapter.getItem(position -1 ).layout.textInputEditText.getText().toString();
-                        if(checkText.equals("") || !CheckNum.isNumber(checkText) ) {
+                        if(checkText.equals("") || !CheckNum.isNumberIncludeFloat(checkText) ) {
                             viewpager.setCurrentItem(4);
                         } else {
                             userSetting.setName(adapter.getItem(1).layout.textInputEditText.getText().toString());
