@@ -37,10 +37,10 @@ public class FirstStepActivity extends AppCompatActivity {
 
         // add Fragments in your ViewPagerFragmentAdapter class
         adapter.addFragment(new FirstStepFragment("처음이시군요"));
-        adapter.addFragment(new FirstStepFragment("당신의 이름은?",true));
-        adapter.addFragment(new FirstStepFragment("당신의 나이는?",true));
-        adapter.addFragment(new FirstStepFragment("당신의 키는?",true));
-        adapter.addFragment(new FirstStepFragment("당신의 몸무게는?",true));
+        adapter.addFragment(new FirstStepFragment("당신의 이름은?", "이름을 입력하세요",true));
+        adapter.addFragment(new FirstStepFragment("당신의 나이는?", "나이를 입력하세요",true));
+        adapter.addFragment(new FirstStepFragment("당신의 키는?","키를 입력하세요",true));
+        adapter.addFragment(new FirstStepFragment("당신의 몸무게는?", "몸무게를 입력하세요",true));
         adapter.addFragment(new FirstStepFragment("준비 완료!"));
 
         viewpager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
