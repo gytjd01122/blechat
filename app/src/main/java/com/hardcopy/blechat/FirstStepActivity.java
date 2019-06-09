@@ -13,6 +13,7 @@ import com.hardcopy.blechat.adapters.ViewPagerFragmentAdapter;
 import com.hardcopy.blechat.databinding.FragmentFirststepBinding;
 import com.hardcopy.blechat.fragments.FirstStepFragment;
 import com.hardcopy.blechat.setting.UserSetting;
+import com.hardcopy.blechat.utils.CheckNum;
 
 import me.relex.circleindicator.CircleIndicator3;
 
@@ -55,22 +56,49 @@ public class FirstStepActivity extends AppCompatActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+                
+
+                String checkText;
+                switch (position){
+                    case 0:
+                    case 1:
+                        break;
+                    case 2:
+                        checkText = adapter.getItem(position -1 ).layout.textInputEditText.getText().toString();
+                            if(checkText.equals("") || CheckNum.isNumber(checkText)) { viewpager.setCurrentItem(1); }
+
+                            break;
+                    case 3:
+                        checkText = adapter.getItem(position -1 ).layout.textInputEditText.getText().toString();
+                        if(checkText.equals("") || !CheckNum.isNumber(checkText)) { viewpager.setCurrentItem(2); }
+
+                        break;
+                    case 4:
+                        checkText = adapter.getItem(position -1 ).layout.textInputEditText.getText().toString();
+                        if(checkText.equals("") || !CheckNum.isNumber(checkText))  { viewpager.setCurrentItem(3);}
+
+                        break;
+                    case 5:
+                        checkText = adapter.getItem(position -1 ).layout.textInputEditText.getText().toString();
+                        if(checkText.equals("") || !CheckNum.isNumber(checkText) ) {
+                            viewpager.setCurrentItem(4);
+                        } else {
+                            userSetting.setName(adapter.getItem(1).layout.textInputEditText.getText().toString());
+                            userSetting.setAge(adapter.getItem(2).layout.textInputEditText.getText().toString());
+                            userSetting.setHeight(adapter.getItem(3).layout.textInputEditText.getText().toString());
+                            userSetting.setWeight(adapter.getItem(4).layout.textInputEditText.getText().toString());
+
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        break;
+                }
             }
 
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-
-                if (position == 5){
-                    userSetting.setName(adapter.getItem(1).layout.textInputEditText.getText().toString());
-                    userSetting.setAge(adapter.getItem(2).layout.textInputEditText.getText().toString());
-                    userSetting.setHeight(adapter.getItem(3).layout.textInputEditText.getText().toString());
-                    userSetting.setWeight(adapter.getItem(4).layout.textInputEditText.getText().toString());
-
-                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
             }
 
             @Override
