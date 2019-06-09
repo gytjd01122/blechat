@@ -42,6 +42,9 @@ public class UserSetting {
     }
 
     public void setName(String name) {
+        if (name.equals("")) {
+            name = USER_SETTING_DEFAULT_VALUE;
+        }
         editor.putString(USER_SETTING_KEY.NAME.toString(), name);
         editor.commit();
     }
